@@ -11,9 +11,11 @@ public class Piece {
 	private int duration;
 	private PieceType type;
 	private User uploader;
-	private String scorePath; // ruta del archivo de la partitura (se dice score en inglés)
+	private String scorePath; // ruta del archivo de la partitura (se dice score en inglï¿½s)
 	private int nDownloads;
+	private int nVisits;
 	private Date uploadDate;
+	private ArrayList<Instrument> instruments;
 	
 	public int getID() {
 		return id;
@@ -47,12 +49,20 @@ public class Piece {
 		return scorePath;
 	}
 	
+	public int getNVisits() {
+		return nVisits;
+	}
+	
 	public int getNDownloads() {
 		return nDownloads;
 	}
 	
 	public Date getUploadDate() {
 		return uploadDate;
+	}
+	
+	public ArrayList<Instrument> getInstruments() {
+		return instruments;
 	}
 	
 	public void setID(int id) {
@@ -85,6 +95,10 @@ public class Piece {
 	
 	public void setScorePath(String scorePath) {
 		this.scorePath = scorePath;
+	}
+	
+	public void setNVisits(int nVisits) {
+		this.nVisits = nVisits;
 	}
 	
 	public void setNDownloads(int nDownloads) {
