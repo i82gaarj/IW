@@ -1,5 +1,9 @@
 package es.uco.iw.controller;
 
-public class PieceController {
+import es.uco.iw.model.Piece;
 
+public class PieceController {
+	public Piece getPieceByID(int pieceID) {
+		return null;
+	}
 }
