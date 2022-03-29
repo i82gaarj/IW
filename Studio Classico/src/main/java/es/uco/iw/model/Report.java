@@ -1,4 +1,4 @@
-package es.uco.iw.classes;
+package es.uco.iw.model;
 
 public class Report {
 	private int id;

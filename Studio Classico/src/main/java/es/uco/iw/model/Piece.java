@@ -1,4 +1,4 @@
-package es.uco.iw.classes;
+package es.uco.iw.model;
 
 import java.util.ArrayList;
 import java.util.Date;
