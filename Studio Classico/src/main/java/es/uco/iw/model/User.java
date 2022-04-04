@@ -8,6 +8,7 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private UserType type;
 	
 	public int getID() {
 		return id;
@@ -33,6 +34,10 @@ public class User {
 		return email;
 	}
 	
+	public UserType getType() {
+		return type;
+	}
+	
 	public void setID(int id) {
 		this.id = id;
 	}
@@ -55,5 +60,9 @@ public class User {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public void setType(UserType type) {
+		this.type = type;
 	}
 }
