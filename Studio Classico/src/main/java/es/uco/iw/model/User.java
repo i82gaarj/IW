@@ -10,6 +10,15 @@ public class User {
 	private String email;
 	private UserType type;
 	
+	public User(int id, String nickname, String password, String firstname, String lastname, String email, UserType type){
+		setID(id);
+		setNickname(nickname);
+		setFirstName(firstname);
+		setLastName(lastname);
+		setEmail(email);
+		setType(type);
+	}
+	
 	public int getID() {
 		return id;
 	}
