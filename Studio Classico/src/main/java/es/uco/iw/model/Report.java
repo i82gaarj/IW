@@ -6,6 +6,13 @@ public class Report {
 	private Piece piece;
 	private String description;
 	
+	public Report(int id, User user, Piece piece, String description){
+		setID(id);
+		setUser(user);
+		setPiece(piece);
+		setDescription(description);
+	}
+	
 	public int getID() {
 		return id;
 	}

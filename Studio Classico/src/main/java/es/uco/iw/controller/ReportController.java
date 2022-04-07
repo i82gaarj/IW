@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import es.uco.iw.model.Piece;
 import es.uco.iw.model.Report;
 import es.uco.iw.model.User;
-import es.uco.iw.model.UserType;
 
 public class ReportController {
 	public Report getReportByID(int id) {
@@ -31,6 +30,7 @@ public class ReportController {
 	        PieceController pieceController = new PieceController();
 	        User user = userController.getUserByID(userID);
 	        Piece piece = pieceController.getPieceByID(pieceID);
+	        report = new Report(id, user, piece, description);
 	        con.close();
 	    }catch(SQLException e) {
 	        System.out.println(e);
