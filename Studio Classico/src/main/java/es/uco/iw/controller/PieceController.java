@@ -49,7 +49,25 @@ public class PieceController {
 		return piece;
 	}
 	
-	public ArrayList<Instrument> getInstrumentsOfPieceByID(int id){
-		return null;
+	public ArrayList<Instrument> getInstrumentsOfPieceByID(int id) {
+		DBController dbController = new DBController();
+		Connection con = dbController.getConnection();
+		ArrayList<Instrument> instruments = new ArrayList<Instrument>();
+        try {
+			PreparedStatement ps = con.prepareStatement("SELECT instrument FROM pieces_instruments WHERE piece = ?");
+			ps.setInt(1, id);
+	        ResultSet rs = ps.executeQuery();
+	        int instrumentID = -1;
+	        while(rs.next()) {
+	        	instrumentID = rs.getInt(1);
+	        	InstrumentController instrumentController = new InstrumentController();
+	        	Instrument instrument = instrumentController.getInstrumentByID(instrumentID);
+	        	instruments.add(instrument);
+	        }
+	        con.close();
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return instruments;
 	}
 }
