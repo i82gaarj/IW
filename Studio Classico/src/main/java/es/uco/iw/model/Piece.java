@@ -18,7 +18,7 @@ public class Piece {
 	private Date uploadDate;
 	private ArrayList<Instrument> instruments;
 	
-	public Piece(int id, String title, Author author, int year, int duration, String type, User user, int nDownloads, int nVisits, Date uploadDate){
+	public Piece(int id, String title, Author author, int year, int duration, String type, User user, String scorePath, int nDownloads, int nVisits, Date uploadDate, ArrayList<Instrument> instruments){
 		setID(id);
 		setTitle(title);
 		setAuthor(author);
@@ -26,9 +26,11 @@ public class Piece {
 		setDuration(duration);
 		setType(type);
 		setUser(user);
+		setScorePath(scorePath);
 		setNDownloads(nDownloads);
 		setNVisits(nVisits);
 		setUploadDate(uploadDate);
+		setInstruments(instruments);
 	}
 	
 	public int getID() {
@@ -121,5 +123,9 @@ public class Piece {
 	
 	public void setUploadDate(Date uploadDate) {
 		this.uploadDate = uploadDate;
+	}
+	
+	public void setInstruments(ArrayList<Instrument> instruments){
+		this.instruments = instruments;
 	}
 }

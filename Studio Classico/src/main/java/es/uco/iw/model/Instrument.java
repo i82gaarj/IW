@@ -4,6 +4,11 @@ public class Instrument {
 	private int id;
 	private String name;
 	
+	public Instrument(int id, String name){
+		setID(id);
+		setName(name);
+	}
+	
 	public int getID() {
 		return id;
 	}
