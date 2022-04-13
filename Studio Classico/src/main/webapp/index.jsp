@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<a href="loginServlet">Iniciar sesión</a>
+<a href="registerServlet">Registro</a>
 </body>
 </html>
