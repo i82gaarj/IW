@@ -4,16 +4,22 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 public class DBController {
 	protected Connection con = null;
+	protected String sDriver = "com.mysql.cj.jdbc.Driver";
+	protected String sURL = "jdbc:mysql://192.168.5.5:3306/studio_classico";
 	
 	public DBController() {
 	}
 	
 	protected Connection getConnection() {
 		try {
-			con = DriverManager.getConnection("IP", "USER", "PASS");
+			Class.forName(sDriver).getDeclaredConstructor().newInstance();
+			con = DriverManager.getConnection(sURL, "db", "jhJFwBQ40j2VTAEy");
 		} catch(SQLException e) {
+			System.out.println(e);
+		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return con;

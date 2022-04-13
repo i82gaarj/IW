@@ -14,7 +14,7 @@ public class UserController {
 		User user = null;
 		try {
 			Connection con = dbController.getConnection();
-			PreparedStatement ps = con.prepareStatement("SELECT nickname, password, firstname, lastname, email, type FROM users WHERE ID = ?");
+			PreparedStatement ps = con.prepareStatement("SELECT nickname, password, firstname, lastname, email, type FROM USERS WHERE ID = ?");
 		    ps.setInt(1, id);
 		    ResultSet rs = ps.executeQuery();
 		    String nickname = null, password = null, firstname = null, lastname = null, email = null;
@@ -40,7 +40,7 @@ public class UserController {
 		User user = null;
 		try {
 			Connection con = dbController.getConnection();
-			PreparedStatement ps = con.prepareStatement("SELECT id FROM users WHERE EMAIL = ?");
+			PreparedStatement ps = con.prepareStatement("SELECT id FROM USERS WHERE EMAIL = ?");
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
 			int id = -1;
