@@ -13,9 +13,12 @@
 	<a href="loginServlet">Iniciar sesión</a>
 	<a href="registerServlet">Registro</a>
 <%
+	} else {
+%>
+	<a href="registerServlet">Registro</a>
+<% 
 	}
 %>
-
 
 </body>
 </html>
