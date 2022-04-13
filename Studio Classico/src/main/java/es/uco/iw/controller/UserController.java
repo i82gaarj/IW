@@ -34,4 +34,24 @@ public class UserController {
 	    }
 		return user;
 	}
+	
+	public User getUserByEmail(String email) {
+		DBController dbController = new DBController();
+		User user = null;
+		try {
+			Connection con = dbController.getConnection();
+	        PreparedStatement ps = con.prepareStatement("SELECT id FROM users WHERE EMAIL = ?");
+	        ps.setString(1, email);
+	        ResultSet rs = ps.executeQuery();
+	        int id = -1;
+	        if(rs.next()) {
+	        	id = rs.getInt(1);
+	        }
+	        user = getUserByID(id);
+	        con.close();
+	    }catch(SQLException e) {
+	        System.out.println(e);
+	    }
+		return user;
+	}
 }

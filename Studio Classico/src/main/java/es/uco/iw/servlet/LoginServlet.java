@@ -3,14 +3,15 @@ package es.uco.iw.servlet;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import es.uco.iw.controller.UserController;
 import es.uco.iw.model.CustomerBean;
+import es.uco.iw.model.User;
 
 
 /**
@@ -32,7 +33,6 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CustomerBean userBean = (CustomerBean) request.getSession().getAttribute("userBean");
 		response.sendRedirect("index.jsp");
 	}
 
@@ -40,7 +40,6 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*ServletContext context = getServletContext();
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
@@ -51,8 +50,8 @@ public class LoginServlet extends HttpServlet {
 			rd.forward(request, response);
 		}
 		else {
-			UserDAO userDAO = new UserDAO(context);
-			UserDTO user = userDAO.queryByEmail(email);
+			UserController userController = new UserController();
+			User user = userController.getUserByEmail(email);
 			
 			CustomerBean userBean = (CustomerBean) request.getSession().getAttribute("userBean");
 			
@@ -60,12 +59,11 @@ public class LoginServlet extends HttpServlet {
 				if (user.getPassword().equals(password)) {
 									
 					userBean.setEmail(user.getEmail());
-					userBean.setFirstname(user.getFirstname());
-					userBean.setLastname(user.getLastname());
-					userBean.setBirthdate(user.getBirthdate());
+					userBean.setFirstname(user.getFirstName());
+					userBean.setLastname(user.getFirstName());
 					userBean.setID(user.getID());
 					
-					response.sendRedirect("boardServlet");
+					response.sendRedirect("/index.jsp");
 				}
 				else {
 					String errorMsg = "El usuario y/o la contraseña no coinciden con nuestros registros";
@@ -80,7 +78,7 @@ public class LoginServlet extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
 				rd.forward(request, response);
 			}
-		}*/
+		}
 		
 	}
 }

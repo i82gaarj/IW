@@ -1,3 +1,5 @@
+<jsp:useBean id="userBean" scope="session" class="es.uco.iw.model.CustomerBean"></jsp:useBean>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,7 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="loginServlet">Iniciar sesión</a>
-<a href="registerServlet">Registro</a>
+<%
+	if (userBean.getEmail() == null){
+%>
+	<a href="loginServlet">Iniciar sesión</a>
+	<a href="registerServlet">Registro</a>
+<%
+	}
+%>
+
+
 </body>
 </html>
