@@ -5,14 +5,17 @@ public class User {
 	private int id;
 	private String nickname;
 	private String password;
+	private int phone;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private UserType type;
 	
-	public User(int id, String nickname, String password, String firstname, String lastname, String email, UserType type){
+	public User(int id, String nickname, String password, int phone, String firstname, String lastname, String email, UserType type){
 		setID(id);
 		setNickname(nickname);
+		setPassword(password);
+		setPhone(phone);
 		setFirstName(firstname);
 		setLastName(lastname);
 		setEmail(email);
@@ -29,6 +32,10 @@ public class User {
 	
 	public String getPassword() {
 		return password;
+	}
+	
+	public int getPhone() {
+		return phone;
 	}
 	
 	public String getFirstName() {
@@ -57,6 +64,10 @@ public class User {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void setPhone(int phone) {
+		this.phone = phone;
 	}
 	
 	public void setFirstName(String firstName) {
