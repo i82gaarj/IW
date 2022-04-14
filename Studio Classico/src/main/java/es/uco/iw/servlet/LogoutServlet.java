@@ -7,10 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import es.uco.iw.model.CustomerBean;
+
 /**
  * Servlet implementation class LogoutServlet
  */
-@WebServlet("/LogoutServlet")
+@WebServlet(name="LogoutServlet", urlPatterns="/logoutServlet")
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,8 +28,22 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		CustomerBean userBean = (CustomerBean) request.getSession().getAttribute("userBean");
+		if (userBean != null) { // el usuario esta logueado
+			if (userBean.getEmail() != null) {
+				userBean.setEmail(null);
+				userBean.setFirstname(null);
+				userBean.setLastname(null);
+				userBean.setID(-1);
+				response.sendRedirect(request.getContextPath());
+			}
+			else {
+				response.sendRedirect(request.getContextPath());
+			}
+		}
+		else {
+			response.sendRedirect(request.getContextPath());
+		}
 	}
 
 	/**

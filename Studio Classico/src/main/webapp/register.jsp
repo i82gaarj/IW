@@ -44,7 +44,7 @@
 		            <br/>
 		
 		            <label for="birthdate">Teléfono:</label>
-		            <input type="date" class="input-form" id="phone" name="phone">
+		            <input type="text" class="input-form" id="phone" name="phone">
 		            <br/>
 		
 		            <input type="submit" class="small-button" value="Registrarse">

@@ -23,22 +23,13 @@ import es.uco.iw.model.User;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * Default constructor. 
-     */
     public LoginServlet() {
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.sendRedirect("login.jsp");
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
@@ -63,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 					userBean.setLastname(user.getFirstName());
 					userBean.setID(user.getID());
 					
-					response.sendRedirect("/index.jsp");
+					response.sendRedirect("index.jsp");
 				}
 				else {
 					String errorMsg = "El usuario y/o la contraseña no coinciden con nuestros registros";

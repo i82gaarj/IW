@@ -14,32 +14,22 @@ import es.uco.iw.model.CustomerBean;
 import es.uco.iw.model.User;
 import es.uco.iw.model.UserType;
 
-/**
- * Servlet implementation class RegisterServlet
- */
-@WebServlet("/RegisterServlet")
+
+@WebServlet(name="RegisterServlet", urlPatterns="/registerServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public RegisterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.sendRedirect(request.getContextPath() + "/register.jsp");
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CustomerBean userBean = (CustomerBean) request.getSession().getAttribute("userBean");
 		if (userBean != null) {

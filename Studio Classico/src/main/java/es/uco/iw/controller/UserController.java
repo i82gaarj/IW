@@ -27,7 +27,7 @@ public class UserController {
 				firstname = rs.getString(4);
 				lastname = rs.getString(5);
 				email = rs.getString(6);
-				type = UserType.values()[rs.getInt(6)];
+				type = UserType.values()[rs.getInt(7)];
 			}
 		    user = new User(id, nickname, password, phone, firstname, lastname, email, type);
 		    con.close();
@@ -48,8 +48,8 @@ public class UserController {
 			int id = -1;
 			if(rs.next()) {
 				id = rs.getInt(1);
+				user = getUserByID(id);
 			}
-			user = getUserByID(id);
 			con.close();
 		}catch(SQLException e) {
 		    System.out.println(e);
@@ -62,7 +62,7 @@ public class UserController {
 		int status = 0;
 		try {
 			Connection con = dbController.getConnection();
-			PreparedStatement ps = con.prepareStatement("INSERT INTO USERS (email, password, nickname, firstname, lastname, phone, type) VALUES (?, ?, ?, ?, ?, ?)");
+			PreparedStatement ps = con.prepareStatement("INSERT INTO USERS (email, password, nickname, firstname, lastname, phone, type) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
 			ps.setString(1, user.getEmail());
 			ps.setString(2, user.getPassword());

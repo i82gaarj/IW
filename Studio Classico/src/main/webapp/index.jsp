@@ -15,7 +15,7 @@
 <%
 	} else {
 %>
-	<a href="registerServlet">Registro</a>
+	<a href="logoutServlet">Cerrar sesión</a>
 <% 
 	}
 %>
