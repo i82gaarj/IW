@@ -20,5 +20,11 @@
 	}
 %>
 
+Rankings
+
+Popularidad
+Duración
+Antiguedad
+<a href="addPieceServlet">Cerrar sesión</a>
 </body>
 </html>
