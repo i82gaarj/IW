@@ -44,7 +44,7 @@
 		            <br/>
 		
 		            <label for="score">Partitura:</label>
-		            <input type="text" class="input-form" id="phone" name="phone">
+		            <input type="file" class="input-form" id="file" name="file">
 		            <br/>
 		
 		            <input type="submit" class="small-button" value="Subir">
