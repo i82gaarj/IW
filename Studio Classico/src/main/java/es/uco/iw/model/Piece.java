@@ -7,25 +7,23 @@ public class Piece {
 	
 	private int id;
 	private String title;
-	private Author author;
 	private int year;
 	private int duration;
 	private String type;
-	private User user;
+	private User author;
 	private String scorePath; // ruta del archivo de la partitura (se dice score en ingl�s)
 	private int nDownloads;
 	private int nVisits;
 	private Date uploadDate;
 	private ArrayList<Instrument> instruments;
 	
-	public Piece(int id, String title, Author author, int year, int duration, String type, User user, String scorePath, int nDownloads, int nVisits, Date uploadDate, ArrayList<Instrument> instruments){
+	public Piece(int id, String title, User author, int year, int duration, String type, String scorePath, int nDownloads, int nVisits, Date uploadDate, ArrayList<Instrument> instruments){
 		setID(id);
 		setTitle(title);
 		setAuthor(author);
 		setYear(year);
 		setDuration(duration);
 		setType(type);
-		setUser(user);
 		setScorePath(scorePath);
 		setNDownloads(nDownloads);
 		setNVisits(nVisits);
@@ -41,7 +39,7 @@ public class Piece {
 		return title;
 	}
 	
-	public Author getAuthor() {
+	public User getAuthor() {
 		return author;
 	}
 	
@@ -55,10 +53,6 @@ public class Piece {
 	
 	public String getType() {
 		return type;
-	}
-	
-	public User getUser() {
-		return user;
 	}
 	
 	public String getScorePath() {
@@ -89,7 +83,7 @@ public class Piece {
 		this.title = title;
 	}
 	
-	public void setAuthor(Author author) {
+	public void setAuthor(User author) {
 		this.author = author;
 	}
 	
@@ -103,10 +97,6 @@ public class Piece {
 	
 	public void setType(String type) {
 		this.type = type;
-	}
-	
-	public void setUser(User user) {
-		this.user = user;
 	}
 	
 	public void setScorePath(String scorePath) {
