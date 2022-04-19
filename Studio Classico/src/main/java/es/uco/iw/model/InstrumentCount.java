@@ -4,6 +4,11 @@ public class InstrumentCount {
 	private int count;
 	private Instrument instrument;
 	
+	public InstrumentCount(int count, Instrument instrument) {
+		setCount(count);
+		setInstrument(instrument);
+	}
+	
 	public int getCount() {
 		return count;
 	}
