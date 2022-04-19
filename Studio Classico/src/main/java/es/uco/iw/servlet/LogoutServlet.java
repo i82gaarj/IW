@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import es.uco.iw.model.CustomerBean;
+import es.uco.iw.model.UserBean;
 
 /**
  * Servlet implementation class LogoutServlet
@@ -28,12 +28,12 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CustomerBean userBean = (CustomerBean) request.getSession().getAttribute("userBean");
+		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
 		if (userBean != null) { // el usuario esta logueado
 			if (userBean.getEmail() != null) {
 				userBean.setEmail(null);
-				userBean.setFirstname(null);
-				userBean.setLastname(null);
+				userBean.setFirstName(null);
+				userBean.setLastName(null);
 				userBean.setID(-1);
 				response.sendRedirect(request.getContextPath());
 			}

@@ -1,4 +1,4 @@
-<jsp:useBean id="userBean" scope="session" class="es.uco.iw.model.CustomerBean"></jsp:useBean>
+<jsp:useBean id="userBean" scope="session" class="es.uco.iw.model.UserBean"></jsp:useBean>
 
 <!DOCTYPE html>
 <html>
@@ -25,6 +25,6 @@ Rankings
 Popularidad
 Duración
 Antiguedad
-<a href="addPieceServlet">Cerrar sesión</a>
+<a href="addPieceServlet">Añadir obra</a>
 </body>
 </html>

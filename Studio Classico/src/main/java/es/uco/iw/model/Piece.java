@@ -1,26 +1,31 @@
 package es.uco.iw.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Piece {
+public class Piece implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private int id;
 	private String title;
 	private int year;
 	private int duration;
 	private String type;
-	private User author;
+	private String author;
+	private User user;
 	private String scorePath; // ruta del archivo de la partitura (se dice score en ingl�s)
 	private int nDownloads;
 	private int nVisits;
 	private Date uploadDate;
-	private ArrayList<Instrument> instruments;
+	private ArrayList<InstrumentCount> instruments;
 	
-	public Piece(int id, String title, User author, int year, int duration, String type, String scorePath, int nDownloads, int nVisits, Date uploadDate, ArrayList<Instrument> instruments){
+	public Piece(int id, String title, String author, User user, int year, int duration, String type, String scorePath, int nDownloads, int nVisits, Date uploadDate, ArrayList<InstrumentCount> instruments){
 		setID(id);
 		setTitle(title);
 		setAuthor(author);
+		setUser(user);
 		setYear(year);
 		setDuration(duration);
 		setType(type);
@@ -39,8 +44,12 @@ public class Piece {
 		return title;
 	}
 	
-	public User getAuthor() {
+	public String getAuthor() {
 		return author;
+	}
+	
+	public User getUser() {
+		return user;
 	}
 	
 	public int getYear() {
@@ -71,7 +80,7 @@ public class Piece {
 		return uploadDate;
 	}
 	
-	public ArrayList<Instrument> getInstruments() {
+	public ArrayList<InstrumentCount> getInstruments() {
 		return instruments;
 	}
 	
@@ -83,8 +92,12 @@ public class Piece {
 		this.title = title;
 	}
 	
-	public void setAuthor(User author) {
+	public void setAuthor(String author) {
 		this.author = author;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	public void setYear(int year) {
@@ -115,7 +128,7 @@ public class Piece {
 		this.uploadDate = uploadDate;
 	}
 	
-	public void setInstruments(ArrayList<Instrument> instruments){
+	public void setInstruments(ArrayList<InstrumentCount> instruments){
 		this.instruments = instruments;
 	}
 }

@@ -1,15 +1,15 @@
 package es.uco.iw.model;
 
-public class User {
+public class User{
 
-	private int id;
-	private String nickname;
-	private String password;
-	private int phone;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private UserType type;
+	private int id = -1;
+	private String nickname = null;
+	private String password = null;
+	private int phone = -1;
+	private String firstName = null;
+	private String lastName = null;
+	private String email = null;
+	private UserType type = null;
 	
 	public User(int id, String nickname, String password, int phone, String firstname, String lastname, String email, UserType type){
 		setID(id);

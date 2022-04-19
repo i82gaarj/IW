@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author Sofía Salas Ruiz
  *
  */
-public class CustomerBean implements Serializable {
+public class UserBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -35,19 +35,19 @@ public class CustomerBean implements Serializable {
 	}
 	
 
-	public String getFirstname() {
+	public String getFirstName() {
 		return firstname;
 	}
 
-	public void setFirstname(String firstname) {
+	public void setFirstName(String firstname) {
 		this.firstname = firstname;
 	}
 
-	public String getLastname() {
+	public String getLastName() {
 		return lastname;
 	}
 
-	public void setLastname(String lastname) {
+	public void setLastName(String lastname) {
 		this.lastname = lastname;
 	}
 }

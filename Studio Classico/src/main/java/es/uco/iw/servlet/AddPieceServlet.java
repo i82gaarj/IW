@@ -19,6 +19,7 @@ import es.uco.iw.controller.InstrumentController;
 import es.uco.iw.controller.PieceController;
 import es.uco.iw.controller.UserController;
 import es.uco.iw.model.Instrument;
+import es.uco.iw.model.InstrumentCount;
 import es.uco.iw.model.Piece;
 import es.uco.iw.model.User;
 import es.uco.iw.helpers.AlphaNumericStringGenerator;
@@ -53,7 +54,8 @@ public class AddPieceServlet extends HttpServlet {
 		ServletContext context = request.getServletContext();
 		// TODO Auto-generated method stub
 		String title = request.getParameter("title");
-		String authorIDStr = request.getParameter("author");
+		String userIDStr = request.getParameter("user");
+		String author = request.getParameter("author");
 		String yearStr = request.getParameter("year");
 		String durationStr = request.getParameter("duration");
 		String type = request.getParameter("type");
@@ -61,21 +63,21 @@ public class AddPieceServlet extends HttpServlet {
 		String scorePath = context.getRealPath(File.separator) + "/scores/" + AlphaNumericStringGenerator.getRandomString(12);
 		
 		UserController userController = new UserController();
-		User author = userController.getUserByID(Integer.parseInt(authorIDStr));
+		User user = userController.getUserByID(Integer.parseInt(userIDStr));
 		int year = Integer.parseInt(yearStr);
 		int duration = Integer.parseInt(durationStr);
-		ArrayList<Instrument> instruments = new ArrayList<Instrument>();
+		ArrayList<InstrumentCount> instruments = new ArrayList<InstrumentCount>();
 		InstrumentController instrumentController = new InstrumentController();
-		for(int i = 0; i < instrumentsStr.length; i++) {
+		/*for(int i = 0; i < instrumentsStr.length; i++) {
 			instruments.add(instrumentController.getInstrumentByID(Integer.parseInt(instrumentsStr[i])));
-		}
+		}*/
 		
 		Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
 	    InputStream fileContent = filePart.getInputStream();
 	    byte[] data = fileContent.readAllBytes();
 	    OutputStream out = new FileOutputStream(new File(scorePath));
 	    out.write(data);
-	    Piece piece = new Piece(-1, title, author, year, duration, type, scorePath, 0, 0, null, instruments);
+	    Piece piece = new Piece(-1, title, author, user, year, duration, type, scorePath, 0, 0, null, instruments);
 		PieceController pieceController = new PieceController();
 		pieceController.savePiece(piece);
 		

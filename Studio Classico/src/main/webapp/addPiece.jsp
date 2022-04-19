@@ -1,9 +1,9 @@
-<jsp:useBean id="userBean" scope="session" class="es.uco.iw.model.CustomerBean"></jsp:useBean>
+<jsp:useBean id="userBean" scope="session" class="es.uco.iw.model.UserBean"></jsp:useBean>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%
-	if (userBean.getEmail() != null){
-		response.sendRedirect(request.getContextPath() + "/index.jsp");
+	if (userBean.getEmail() == null){
+		response.sendRedirect(request.getContextPath() + "/errorPage.jsp");
 	}
 %>
 <!DOCTYPE html>
@@ -27,10 +27,6 @@
 		            <input type="text" class="input-form" id="title" name="title">
 		            <br/>
 		            
-		            <label for="author">Autor:</label>
-		            <input type="text" class="input-form" id="author" name="author">
-		            <br/>
-		            
 		            <label for="year">Año:</label>
 		            <input type="number" class="input-form" id="year" name="year">
 		            <br/>
@@ -46,6 +42,14 @@
 		            <label for="score">Partitura:</label>
 		            <input type="file" class="input-form" id="file" name="file">
 		            <br/>
+		            
+		            <label for="instrument[]">Instrumentos:</label>
+		            <input type="text" class="input-form" id="instrument" name="instrument[]">
+		            <br/>
+		            <%
+		            
+		            
+		            %>
 		
 		            <input type="submit" class="small-button" value="Subir">
 		        </form>

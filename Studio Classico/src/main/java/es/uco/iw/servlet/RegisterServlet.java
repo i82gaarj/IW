@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import es.uco.iw.controller.UserController;
-import es.uco.iw.model.CustomerBean;
+import es.uco.iw.model.UserBean;
 import es.uco.iw.model.User;
 import es.uco.iw.model.UserType;
 
@@ -31,7 +31,7 @@ public class RegisterServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CustomerBean userBean = (CustomerBean) request.getSession().getAttribute("userBean");
+		UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
 		if (userBean != null) {
 			if (userBean.getEmail() == null) {
 				String email = request.getParameter("email");
