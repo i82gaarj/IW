@@ -88,6 +88,29 @@ public class PieceController {
 			ps.setString(7, piece.getScorePath());
 			
 			status = ps.executeUpdate();
+			saveInstrumentsOfPiece(piece);
+			
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return status;
+	}
+	
+	public int saveInstrumentsOfPiece(Piece piece){
+		DBController dbController = new DBController();
+		int status = 0;
+		try {
+			Connection con = dbController.getConnection();
+			ArrayList<InstrumentCount> instruments = piece.getInstruments();
+			PreparedStatement ps = con.prepareStatement("INSERT INTO PIECES_INSTRUMENTS (piece, instrument) VALUES (?, ?)");
+			for (InstrumentCount i: instruments){
+				ps.setInt(1, piece.getID());
+				ps.setInt(2, i.getInstrument().getID());
+				status = ps.executeUpdate();
+			}
+
 			
 			con.close();
 		} catch (Exception e) {
