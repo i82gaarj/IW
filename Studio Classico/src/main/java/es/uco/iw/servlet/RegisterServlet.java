@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import es.uco.iw.controller.UserController;
+import es.uco.iw.controller.UserDAO;
 import es.uco.iw.model.UserBean;
 import es.uco.iw.model.User;
 import es.uco.iw.model.UserType;
@@ -42,7 +42,7 @@ public class RegisterServlet extends HttpServlet {
 				String lastname = request.getParameter("lastname");
 				String phoneStr = request.getParameter("phone");
 				
-				UserController userController = new UserController();
+				UserDAO userController = new UserDAO();
 				if (userController.getUserByEmail(email) != null) {
 					String errorMsg = "Un usuario con este email ya existe";
 					request.setAttribute("errorMsg", errorMsg);

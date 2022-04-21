@@ -9,9 +9,9 @@ import es.uco.iw.model.Piece;
 import es.uco.iw.model.Report;
 import es.uco.iw.model.User;
 
-public class ReportController {
+public class ReportDAO {
 	public Report getReportByID(int id) {
-		DBController dbController = new DBController();
+		DAO dbController = new DAO();
 		Report report = null;
 		try {
 			Connection con = dbController.getConnection();
@@ -26,8 +26,8 @@ public class ReportController {
 	        	pieceID = rs.getInt(2);
 	        	description = rs.getString(3);
 	        }
-	        UserController userController = new UserController();
-	        PieceController pieceController = new PieceController();
+	        UserDAO userController = new UserDAO();
+	        PieceDAO pieceController = new PieceDAO();
 	        User user = userController.getUserByID(userID);
 	        Piece piece = pieceController.getPieceByID(pieceID);
 	        report = new Report(id, user, piece, description);

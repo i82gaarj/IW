@@ -1,4 +1,5 @@
 <jsp:useBean id="userBean" scope="session" class="es.uco.iw.model.UserBean"></jsp:useBean>
+<jsp:useBean id="instrumentsBean" scope="session" class="es.uco.iw.model.InstrumentBean"></jsp:useBean>
 
 <!DOCTYPE html>
 <html>
@@ -10,12 +11,12 @@
 <%
 	if (userBean.getEmail() == null){
 %>
-	<a href="loginServlet">Iniciar sesión</a>
-	<a href="registerServlet">Registro</a>
+	<a href="login">Iniciar sesión</a>
+	<a href="register">Registro</a>
 <%
 	} else {
 %>
-	<a href="logoutServlet">Cerrar sesión</a>
+	<a href="logout">Cerrar sesión</a>
 <% 
 	}
 %>
@@ -25,6 +26,6 @@ Rankings
 Popularidad
 Duración
 Antiguedad
-<a href="addPieceServlet">Añadir obra</a>
+<a href="addPiece">Añadir obra</a>
 </body>
 </html>

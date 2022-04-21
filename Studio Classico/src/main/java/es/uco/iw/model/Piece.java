@@ -1,12 +1,10 @@
 package es.uco.iw.model;
 
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Piece implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+public class Piece {
 	
 	private int id;
 	private String title;

@@ -7,7 +7,8 @@
 		request.setAttribute("errorMsg", "No ha iniciado sesión");
 		RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
 		rd.forward(request, response);
-	} 
+	}
+	ArrayList<Instrument> instruments = (ArrayList<Instrument>) request.getAttribute("instruments"); 
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,27 +26,27 @@
 				<p class="subtitle">Rellene el formulario</p>
 		    </div>
 		    <div class="form-register">
-		        <form action="<%= request.getContextPath() %>/addPieceServlet?action=new" method="GET">
-		        	<input type="hidden" class="input-form" id="user" name="user" value="<%=userBean.getID()%>">
-		            <label for="title">Título:</label>
-		            <input type="text" class="input-form" id="title" name="title">
-		            <br/>
+		        <form action="<%= request.getContextPath() %>/addInstrumentToPiece" method="GET">
 		            
-		            <label for="year">Año:</label>
-		            <input type="number" class="input-form" id="year" name="year">
+		            <label>Instrumentos:</label>
 		            <br/>
-		
-		            <label for="duration">Duración (en segundos):</label>
-		            <input type="number" class="input-form" id="duration" name="duration">
-		            <br/>
-		
-		            <label for="type">Tipo:</label>
-		            <input type="text" class="input-form" id="type" name="type">
-		            <br/>
-		
-		            <label for="score">Partitura:</label>
-		            <input type="file" class="input-form" id="file" name="file">
-		            <br/>
+		            <%
+		            for (Instrument i : instruments){
+		            	int ii = 0;
+		            	%>
+		            	
+		            	<label for="count<%=i.getID()%>"><%=i.getName() %> Cantidad</label>
+		            	<input type="number" class="input-form" id="instrument<%=i.getID()%>" name="instrument[][<%=i.getID()%>]">
+		            	<br/>
+		            	<%
+		            	ii++;
+		            }
+		            	
+		            %>
+		            
+		            <%
+		            
+		            %>
 		
 		            <input type="submit" class="small-button" value="Siguiente">
 		        </form>

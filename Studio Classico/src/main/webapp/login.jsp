@@ -25,7 +25,7 @@
 	    	<% if (msg != null) { %>
 	    		<p class="message-success"><%= msg %></p>
 	    	<% } %>
-	        <form class="form-login" action="<%= request.getContextPath() %>/loginServlet" method="post">
+	        <form class="form-login" action="<%= request.getContextPath() %>/login" method="post">
 	            <label for="email">Email:</label>
 	            <input type="text" class="input-form" name="email">
 	            <br/>

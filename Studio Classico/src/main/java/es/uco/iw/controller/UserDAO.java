@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import es.uco.iw.model.User;
 import es.uco.iw.model.UserType;
 
-public class UserController {
+public class UserDAO {
 	public User getUserByID(int id) {
-		DBController dbController = new DBController();
+		DAO dbController = new DAO();
 		User user = null;
 		try {
 			Connection con = dbController.getConnection();
@@ -38,7 +38,7 @@ public class UserController {
 	}
 	
 	public User getUserByEmail(String email) {
-		DBController dbController = new DBController();
+		DAO dbController = new DAO();
 		User user = null;
 		try {
 			Connection con = dbController.getConnection();
@@ -58,7 +58,7 @@ public class UserController {
 	}
 	
 	public int saveUser (User user) {
-		DBController dbController = new DBController();
+		DAO dbController = new DAO();
 		int status = 0;
 		try {
 			Connection con = dbController.getConnection();

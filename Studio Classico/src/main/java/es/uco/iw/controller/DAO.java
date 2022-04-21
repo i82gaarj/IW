@@ -5,12 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class DBController {
+public class DAO {
 	protected Connection con = null;
 	protected String sDriver = "com.mysql.cj.jdbc.Driver";
 	protected String sURL = "jdbc:mysql://192.168.5.5:3306/studio_classico";
 	
-	public DBController() {
+	public DAO() {
 	}
 	
 	protected Connection getConnection() {

@@ -9,28 +9,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import es.uco.iw.controller.UserController;
+import es.uco.iw.controller.UserDAO;
 import es.uco.iw.model.User;
 import es.uco.iw.model.UserBean;
 
-
 /**
- * Servlet implementation class Login
- * @author Jaime García Arjona
- * @author Sofía Salas Ruiz
+ * Servlet implementation class UserController
  */
-@WebServlet(name="LoginServlet", urlPatterns="/loginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet(name="LoginController", urlPatterns="/login")
+public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    public LoginServlet() {
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public LoginController() {
+        super();
+        // TODO Auto-generated constructor stub
     }
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("login.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
+		rd.forward(request, response);
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		login(request, response);
+	}
+	
+	protected void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
@@ -41,7 +55,7 @@ public class LoginServlet extends HttpServlet {
 			rd.forward(request, response);
 		}
 		else {
-			UserController userController = new UserController();
+			UserDAO userController = new UserDAO();
 			User user = userController.getUserByEmail(email);
 			
 			UserBean userBean = (UserBean) request.getSession().getAttribute("userBean");
@@ -72,4 +86,5 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 	}
+
 }

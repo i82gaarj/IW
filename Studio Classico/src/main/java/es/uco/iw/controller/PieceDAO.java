@@ -12,9 +12,9 @@ import es.uco.iw.model.InstrumentCount;
 import es.uco.iw.model.Piece;
 import es.uco.iw.model.User;
 
-public class PieceController {
+public class PieceDAO {
 	public Piece getPieceByID(int id) {
-		DBController dbController = new DBController();
+		DAO dbController = new DAO();
 		Piece piece = null;
 		try {
 			Connection con = dbController.getConnection();
@@ -37,7 +37,7 @@ public class PieceController {
 	        	userID = rs.getInt(10);
 	        }
 	        con.close();
-	        UserController userController = new UserController();
+	        UserDAO userController = new UserDAO();
 	        User user = userController.getUserByID(userID);
 	        ArrayList<InstrumentCount> instruments = getInstrumentsOfPieceByID(id);
 	        piece = new Piece(id, title, author, user, year, duration, type, scorePath, nDownloads, nVisits, uploadDate, instruments);
@@ -48,7 +48,7 @@ public class PieceController {
 	}
 	
 	public ArrayList<InstrumentCount> getInstrumentsOfPieceByID(int id) {
-		DBController dbController = new DBController();
+		DAO dbController = new DAO();
 		Connection con = dbController.getConnection();
 		ArrayList<InstrumentCount> instruments = new ArrayList<InstrumentCount>();
         try {
@@ -60,7 +60,7 @@ public class PieceController {
 	        while(rs.next()) {
 	        	instrumentID = rs.getInt(1);
 	        	count = rs.getInt(2);
-	        	InstrumentController instrumentController = new InstrumentController();
+	        	InstrumentDAO instrumentController = new InstrumentDAO();
 	        	Instrument instrument = instrumentController.getInstrumentByID(instrumentID);
 	        	InstrumentCount instrumentCount = new InstrumentCount(count, instrument);
 	        	instruments.add(instrumentCount);
@@ -73,7 +73,7 @@ public class PieceController {
 	}
 	
 	public int savePiece (Piece piece) {
-		DBController dbController = new DBController();
+		DAO dbController = new DAO();
 		int status = 0;
 		try {
 			Connection con = dbController.getConnection();
@@ -99,7 +99,7 @@ public class PieceController {
 	}
 	
 	public int saveInstrumentsOfPiece(Piece piece){
-		DBController dbController = new DBController();
+		DAO dbController = new DAO();
 		int status = 0;
 		try {
 			Connection con = dbController.getConnection();
