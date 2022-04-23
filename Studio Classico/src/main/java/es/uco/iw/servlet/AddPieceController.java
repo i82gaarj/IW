@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import es.uco.iw.controller.InstrumentDAO;
@@ -30,6 +32,11 @@ import es.uco.iw.helpers.AlphaNumericStringGenerator;
  * Servlet implementation class AddPieceServlet
  */
 @WebServlet(name="AddPieceController", urlPatterns="/addPiece")
+@MultipartConfig(
+		  fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+		  maxFileSize = 1024 * 1024 * 50,      // 50 MB
+		  maxRequestSize = 1024 * 1024 * 100   // 100 MB
+		)
 public class AddPieceController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -72,15 +79,52 @@ public class AddPieceController extends HttpServlet {
 			String yearStr = request.getParameter("year");
 			String durationStr = request.getParameter("duration");
 			String type = request.getParameter("type");
-			String scorePath = context.getRealPath(File.separator) + "/scores/" + AlphaNumericStringGenerator.getRandomString(12);
+
+
 			UserDAO userController = new UserDAO();
 			User user = userController.getUserByID(Integer.parseInt(userIDStr));
 			int year = Integer.parseInt(yearStr);
 			int duration = Integer.parseInt(durationStr);
 			PieceBean pieceBean = new PieceBean();
+			request.setAttribute("pieceBean", pieceBean);
+			pieceBean.setTitle(title);
+			pieceBean.setUser(user);
+			pieceBean.setAuthor(author);
+			pieceBean.setDuration(duration);
+			pieceBean.setYear(year);
+			pieceBean.setType(type);
+			
+			InstrumentDAO instrumentDAO = new InstrumentDAO();
+			ArrayList<Instrument> allInstruments = instrumentDAO.getAllInstruments();
+			request.setAttribute("instruments", allInstruments);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/addInstrumentsToNewPiece.jsp");
+			rd.forward(request, response);
 		}
 		else if (action.equalsIgnoreCase("addInst")) {
+			HttpSession session = request.getSession();
+			PieceBean pieceBean = (PieceBean) session.getAttribute("pieceBean");
 			
+			String instrumentStr = request.getParameter("instrument");
+			String countStr = request.getParameter("count");
+			
+			int instrumentID = Integer.parseInt(instrumentStr);
+			int count = Integer.parseInt(countStr);
+			
+			InstrumentDAO instrumentDAO = new InstrumentDAO();
+			Instrument instrument = instrumentDAO.getInstrumentByID(instrumentID);
+			
+			InstrumentCount ic = new InstrumentCount(count, instrument);
+			pieceBean.addInstrument(ic);
+			
+			ArrayList<Instrument> allInstruments = instrumentDAO.getAllInstruments();
+			request.setAttribute("instruments", allInstruments);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/addInstrumentsToNewPiece.jsp");
+			rd.forward(request, response);
+		}
+		else if (action.equalsIgnoreCase("uploadScore")) {
+			String scorePath = context.getRealPath(File.separator) + "/scores/" + AlphaNumericStringGenerator.getRandomString(12);
 		}
 		else if (action.equalsIgnoreCase("save")) {
 			
@@ -92,11 +136,7 @@ public class AddPieceController extends HttpServlet {
 		}
 
 		
-		Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-	    InputStream fileContent = filePart.getInputStream();
-	    byte[] data = fileContent.readAllBytes();
-	    OutputStream out = new FileOutputStream(new File(scorePath));
-	    out.write(data);
+		
 	    /*Piece piece = new Piece(-1, title, author, user, year, duration, type, scorePath, 0, 0, null, instruments);
 		PieceDAO pieceController = new PieceDAO();
 		pieceController.savePiece(piece);*/

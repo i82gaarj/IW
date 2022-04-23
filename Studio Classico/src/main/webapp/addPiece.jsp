@@ -25,10 +25,14 @@
 				<p class="subtitle">Rellene el formulario</p>
 		    </div>
 		    <div class="form-register">
-		        <form action="<%= request.getContextPath() %>/addPieceServlet?action=new" method="GET">
+		        <form action="<%= request.getContextPath() %>/addPiece?action=new" method="POST">
 		        	<input type="hidden" class="input-form" id="user" name="user" value="<%=userBean.getID()%>">
 		            <label for="title">Título:</label>
 		            <input type="text" class="input-form" id="title" name="title">
+		            <br/>
+		            
+		            <label for="author">Autor:</label>
+		            <input type="text" class="input-form" id="author" name="author">
 		            <br/>
 		            
 		            <label for="year">Año:</label>
@@ -41,10 +45,6 @@
 		
 		            <label for="type">Tipo:</label>
 		            <input type="text" class="input-form" id="type" name="type">
-		            <br/>
-		
-		            <label for="score">Partitura:</label>
-		            <input type="file" class="input-form" id="file" name="file">
 		            <br/>
 		
 		            <input type="submit" class="small-button" value="Siguiente">

@@ -24,7 +24,8 @@ public class PieceBean implements Serializable {
 	private int nDownloads = -1;
 	private int nVisits = -1;
 	private Date uploadDate = null;
-	private ArrayList<InstrumentCount> instruments;
+	private ArrayList<InstrumentCount> instruments = null;
+
 	
 	public PieceBean(){
 		
@@ -121,9 +122,15 @@ public class PieceBean implements Serializable {
 	public void setUploadDate(Date uploadDate) {
 		this.uploadDate = uploadDate;
 	}
-	
+
 	public void setInstruments(ArrayList<InstrumentCount> instruments){
 		this.instruments = instruments;
 	}
-
+	
+	public void addInstrument(InstrumentCount ic) {
+		if (this.instruments == null) {
+			instruments = new ArrayList<InstrumentCount>();
+		}
+		this.instruments.add(ic);
+	}
 }

@@ -1,5 +1,4 @@
 <jsp:useBean id="userBean" scope="session" class="es.uco.iw.model.UserBean"></jsp:useBean>
-<jsp:useBean id="instrumentsBean" scope="session" class="es.uco.iw.model.InstrumentBean"></jsp:useBean>
 
 <!DOCTYPE html>
 <html>

@@ -1,5 +1,6 @@
-<%@ page import="es.uco.iw.model.Instrument, java.util.ArrayList" %>
+<%@ page import="es.uco.iw.model.Instrument, java.util.ArrayList, es.uco.iw.model.InstrumentCount" %>
 <jsp:useBean id="userBean" scope="session" class="es.uco.iw.model.UserBean"></jsp:useBean>
+<jsp:useBean id="pieceBean" scope="session" class="es.uco.iw.model.PieceBean"></jsp:useBean>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%
@@ -26,7 +27,7 @@
 				<p class="subtitle">Rellene el formulario</p>
 		    </div>
 		    <div class="form-register">
-		        <form action="<%= request.getContextPath() %>/addInstrumentToPiece" method="GET">
+		        <form action="<%= request.getContextPath() %>/addPiece?action=addInst" method="POST">
 		            
 		            <label>Instrumentos:</label>
 		            <br/>
@@ -34,22 +35,38 @@
 		            for (Instrument i : instruments){
 		            	int ii = 0;
 		            	%>
-		            	
-		            	<label for="count<%=i.getID()%>"><%=i.getName() %> Cantidad</label>
-		            	<input type="number" class="input-form" id="instrument<%=i.getID()%>" name="instrument[][<%=i.getID()%>]">
+		            	<label for="instrument"><%=i.getName() %></label>
+		            	<input type="hidden" class="input-form" id="instrument" name="instrument" value="<%=i.getID()%>">
+
+		            	<label for="count">Cantidad</label>
+		            	<input type="number" class="input-form" id="count" name="count">
 		            	<br/>
 		            	<%
 		            	ii++;
 		            }
-		            	
-		            %>
-		            
-		            <%
-		            
 		            %>
 		
-		            <input type="submit" class="small-button" value="Siguiente">
+		            <input type="submit" class="small-button" value="Añadir">
 		        </form>
+		        
+		        <p>Instrumentos añadidos:</p>
+		        <%
+		        ArrayList<InstrumentCount> currentInstruments = pieceBean.getInstruments();
+		        if (currentInstruments == null){
+		        %>
+		        	<p>No se han añadido instrumentos
+		        <%
+		        }else{
+			        for (InstrumentCount ic : currentInstruments){
+			        %>
+			        	<p><%=ic.getCount() %> x <%=ic.getInstrument().getName() %></p>
+			        	<button onclick="window.location.href='/addPiece?action=removeInst'">Eliminar</button>
+			        <%
+			        }
+		        }    
+			    %>
+		        <button onclick="window.location.href='/addPiece?action=addScore'">Continue</button>
+
 		    </div>
 		</div>
 	</div>
