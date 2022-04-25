@@ -2,6 +2,7 @@ package es.uco.iw.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  * CustomerBean del usuario
@@ -132,5 +133,18 @@ public class PieceBean implements Serializable {
 			instruments = new ArrayList<InstrumentCount>();
 		}
 		this.instruments.add(ic);
+	}
+	
+	public void deleteInstrument(int id) {
+		
+		Iterator<InstrumentCount> itr = instruments.iterator();
+		
+		while (itr.hasNext()) {
+			int nextID = (Integer)itr.next().getInstrument().getID();
+			if (nextID == id) {
+				itr.remove();
+			}
+		}
+
 	}
 }

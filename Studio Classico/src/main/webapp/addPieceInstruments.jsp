@@ -60,12 +60,15 @@
 			        for (InstrumentCount ic : currentInstruments){
 			        %>
 			        	<p><%=ic.getCount() %> x <%=ic.getInstrument().getName() %></p>
-			        	<button onclick="window.location.href='/addPiece?action=removeInst'">Eliminar</button>
+			        	<form action="<%= request.getContextPath() %>/addPiece?action=removeInst" method="POST">
+			        	<input type="hidden" id="name" name="instrument" value="<%=ic.getInstrument().getID()%>">
+			        	<input type="submit" class="small-button" value="Eliminar">
+			        	</form>
 			        <%
 			        }
 		        }    
 			    %>
-		        <button onclick="window.location.href='/addPiece?action=addScore'">Continue</button>
+		        <button onclick="window.location.href='<%= request.getContextPath() %>/addPiece?action=addScore'">Continue</button>
 
 		    </div>
 		</div>

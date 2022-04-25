@@ -25,6 +25,6 @@ Rankings
 Popularidad
 Duración
 Antiguedad
-<a href="addPiece">Añadir obra</a>
+<a href="addPiece?action=new">Añadir obra</a>
 </body>
 </html>

@@ -12,14 +12,14 @@ import es.uco.iw.model.UserBean;
 /**
  * Servlet implementation class LogoutServlet
  */
-@WebServlet(name="LogoutServlet", urlPatterns="/logoutServlet")
-public class LogoutServlet extends HttpServlet {
+@WebServlet(name="LogoutController", urlPatterns="/logout")
+public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutServlet() {
+    public LogoutController() {
         super();
         // TODO Auto-generated constructor stub
     }

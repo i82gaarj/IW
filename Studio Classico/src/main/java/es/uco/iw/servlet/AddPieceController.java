@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -17,6 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import es.uco.iw.controller.InstrumentDAO;
 import es.uco.iw.controller.PieceDAO;
@@ -52,11 +58,32 @@ public class AddPieceController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		InstrumentDAO instrumentDAO = new InstrumentDAO();
-		ArrayList<Instrument> allInstruments = instrumentDAO.getAllInstruments();
-		request.setAttribute("instruments", allInstruments);
-		RequestDispatcher rd = request.getRequestDispatcher("/addPiece.jsp");
-		rd.forward(request, response);
+		String action = request.getParameter("action");
+		
+		if (action == null) {
+			request.setAttribute("errorMsg", "Acceso inválido");
+			RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+			rd.forward(request, response);
+		}
+		else if (action.equalsIgnoreCase("new")) {
+			InstrumentDAO instrumentDAO = new InstrumentDAO();
+			ArrayList<Instrument> allInstruments = instrumentDAO.getAllInstruments();
+			request.setAttribute("instruments", allInstruments);
+			RequestDispatcher rd = request.getRequestDispatcher("/addPiece.jsp");
+			rd.forward(request, response);
+		}
+		else if (action.equalsIgnoreCase("addScore")) {
+			InstrumentDAO instrumentDAO = new InstrumentDAO();
+			ArrayList<Instrument> allInstruments = instrumentDAO.getAllInstruments();
+			request.setAttribute("instruments", allInstruments);
+			RequestDispatcher rd = request.getRequestDispatcher("/addPieceScore.jsp");
+			rd.forward(request, response);
+		}
+		else {
+			request.setAttribute("errorMsg", "Acceso inválido");
+			RequestDispatcher rd = request.getRequestDispatcher("/errorPage.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	/**
@@ -98,18 +125,33 @@ public class AddPieceController extends HttpServlet {
 			ArrayList<Instrument> allInstruments = instrumentDAO.getAllInstruments();
 			request.setAttribute("instruments", allInstruments);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/addInstrumentsToNewPiece.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/addPieceInstruments.jsp");
 			rd.forward(request, response);
 		}
 		else if (action.equalsIgnoreCase("addInst")) {
 			HttpSession session = request.getSession();
 			PieceBean pieceBean = (PieceBean) session.getAttribute("pieceBean");
 			
+			ArrayList<InstrumentCount> sessionInstruments = pieceBean.getInstruments();
+
+			
 			String instrumentStr = request.getParameter("instrument");
 			String countStr = request.getParameter("count");
 			
 			int instrumentID = Integer.parseInt(instrumentStr);
 			int count = Integer.parseInt(countStr);
+			
+			if (sessionInstruments != null) {
+				for (InstrumentCount ic : sessionInstruments) { //comprobamos que el instrumento no haya sido añadido ya
+					int id = ic.getInstrument().getID();
+					if (instrumentID == id) {
+						request.setAttribute("errorMsg", "Este instrumento ya ha sido añadido");
+						RequestDispatcher rd = request.getRequestDispatcher("/addPieceInstruments.jsp");
+						rd.forward(request, response);
+						return;
+					}
+				}
+			}
 			
 			InstrumentDAO instrumentDAO = new InstrumentDAO();
 			Instrument instrument = instrumentDAO.getInstrumentByID(instrumentID);
@@ -120,11 +162,51 @@ public class AddPieceController extends HttpServlet {
 			ArrayList<Instrument> allInstruments = instrumentDAO.getAllInstruments();
 			request.setAttribute("instruments", allInstruments);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/addInstrumentsToNewPiece.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/addPieceInstruments.jsp");
+			rd.forward(request, response);
+		}
+		else if (action.equalsIgnoreCase("removeInst")) {
+			HttpSession session = request.getSession();
+			PieceBean pieceBean = (PieceBean) session.getAttribute("pieceBean");
+
+			String instrumentStr = request.getParameter("instrument");
+			
+			int instrumentID = Integer.parseInt(instrumentStr);
+			
+			pieceBean.deleteInstrument(instrumentID);
+						
+			InstrumentDAO instrumentDAO = new InstrumentDAO();
+			ArrayList<Instrument> allInstruments = instrumentDAO.getAllInstruments();
+			request.setAttribute("instruments", allInstruments);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/addPieceInstruments.jsp");
 			rd.forward(request, response);
 		}
 		else if (action.equalsIgnoreCase("uploadScore")) {
 			String scorePath = context.getRealPath(File.separator) + "/scores/" + AlphaNumericStringGenerator.getRandomString(12);
+			if(ServletFileUpload.isMultipartContent(request)){
+	            try {
+	                List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest((RequestContext) request);
+	               
+	                for(FileItem item : multiparts){
+	                    if(!item.isFormField()){
+	                        String name = new File(item.getName()).getName();
+	                        item.write( new File(scorePath + File.separator + name));
+	                    }
+	                }
+	            
+	               //File uploaded successfully
+	               request.setAttribute("message", "File Uploaded Successfully");
+	            } catch (Exception ex) {
+	               request.setAttribute("message", "File Upload Failed due to " + ex);
+	            }          
+	          
+	        }else{
+	            request.setAttribute("message",
+	                                 "Sorry this Servlet only handles file upload request");
+	        }
+			RequestDispatcher rd = request.getRequestDispatcher("/addPieceFinish.jsp");
+			rd.forward(request, response);
 		}
 		else if (action.equalsIgnoreCase("save")) {
 			
