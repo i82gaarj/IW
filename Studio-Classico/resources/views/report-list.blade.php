@@ -34,6 +34,9 @@
                         </tbody>
                     </table>
                 @endif
+                @if (count($reports) > 0)
+                    {{ $reports->links() }}
+                @endif
                 </div>
             </div>
         </div>

@@ -22,7 +22,7 @@ class ReportController extends Controller
         if (Auth::user()->type != 'Admin'){
             return redirect(route('home'))->with('error', 'Usted no puede ver la lista de reportes.');
         }
-        $reports = Report::orderBy('created_at', 'desc')->get();
+        $reports = Report::orderBy('created_at', 'desc')->paginate(15);
         return view('report-list', compact('reports'));
     }
 
